@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Nurad · Archives de l'Assemblée</title>
+  <style>
+    :root { --paper: #f6f7f3; --white: #fff; --ink: #232d29; --muted: #626e67; --jade: #164e42; --jade-light: #e7efea; --wine: #943e53; --line: #d6ddd6; --serif: "Palatino Linotype", Palatino, Georgia, serif; --sans: "Avenir Next", Avenir, "Trebuchet MS", sans-serif; }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 28px; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.65 var(--sans); letter-spacing: 0; }
+    a { color: var(--jade); text-underline-offset: 4px; }
+    button, input { font: inherit; }
+    button, a, input { -webkit-tap-highlight-color: transparent; }
+    :focus-visible { outline: 3px solid var(--wine); outline-offset: 4px; }
+    [hidden] { display: none !important; }
+    .skip { position: fixed; top: -100px; left: 20px; z-index: 5; background: white; padding: 12px; }
+    .skip:focus { top: 12px; }
+    .shell { display: grid; grid-template-columns: 258px minmax(0, 1fr); min-height: 100vh; }
+    .sidebar { position: sticky; top: 0; align-self: start; height: 100vh; padding: 34px 25px; background: var(--jade); color: #e7efea; display: flex; flex-direction: column; overflow-y: auto; }
+    .brand { color: white; font: 24px/1.18 var(--serif); text-decoration: none; display: block; }
+    .brand small { display: block; font: 11px/1.5 var(--sans); color: #c0d4c8; margin-bottom: 10px; text-transform: uppercase; }
+    .sidebar .divider { height: 1px; background: #477466; margin: 27px 0; }
+    .nav-label { font: 11px/1.5 var(--sans); text-transform: uppercase; color: #bfd2c8; margin: 0 12px 9px; }
+    .navigation { display: grid; gap: 4px; }
+    .navigation a { display: flex; gap: 12px; align-items: baseline; padding: 10px 12px; border-left: 2px solid transparent; color: #e7efea; text-decoration: none; border-radius: 0 4px 4px 0; }
+    .navigation a:hover { background: #285c4e; }
+    .navigation a[aria-current="page"] { background: #e7efea; color: #164e42; border-left-color: #e5b45a; }
+    .nav-number { font: 11px/1.5 monospace; opacity: .7; flex: 0 0 22px; }
+    .chronology-link { margin-top: 23px; }
+    .sidebar-foot { margin-top: auto; padding-top: 32px; font-size: 12px; color: #bfd2c8; }
+    .sidebar-foot strong { display: block; color: #fff; font-weight: 500; }
+    .content { min-width: 0; }
+    .topbar { border-bottom: 1px solid var(--line); min-height: 84px; padding: 18px 36px; display: flex; align-items: center; gap: 22px; background: #fff; }
+    .breadcrumb { color: var(--muted); font-size: 12px; white-space: nowrap; }
+    .searchbox { display: flex; align-items: center; gap: 10px; width: min(100%, 340px); margin-left: auto; }
+    .searchbox label { color: var(--muted); font-size: 12px; }
+    input[type="search"] { width: 100%; min-width: 0; height: 40px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 4px; background: var(--paper); color: var(--ink); }
+    .print { border: 0; padding: 8px 0; background: none; color: var(--jade); cursor: pointer; font-size: 12px; }
+    .reading-layout { display: grid; grid-template-columns: minmax(0, 780px) 185px; gap: 46px; max-width: 1130px; margin: 0 auto; padding: 42px 40px 80px; }
+    main { min-width: 0; }
+    .eyebrow { font: 11px/1.5 var(--sans); text-transform: uppercase; color: var(--wine); margin: 0 0 10px; }
+    h1 { font: 46px/1.12 var(--serif); margin: 0 0 24px; overflow-wrap: anywhere; }
+    h2 { font: 26px/1.3 var(--serif); margin: 0 0 20px; overflow-wrap: anywhere; }
+    h3 { font: 600 16px/1.45 var(--sans); margin: 25px 0 8px; overflow-wrap: anywhere; }
+    p { margin: 0 0 16px; }
+    .metadata { margin: 0 0 24px; display: flex; flex-wrap: wrap; gap: 8px 20px; color: var(--muted); font-size: 12px; }
+    .metadata span::before { content: ""; display: inline-block; width: 5px; height: 5px; background: var(--wine); margin-right: 7px; vertical-align: middle; }
+    .location { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
+    .lead { font: 21px/1.55 var(--serif); }
+    article section { border-top: 1px solid var(--line); padding-top: 28px; margin-top: 34px; }
+    article header { border-bottom: 3px solid var(--jade); padding-bottom: 10px; }
+    article[data-route="fray"] header { border-color: var(--wine); }
+    .section-index { align-self: start; position: sticky; top: 30px; padding-top: 7px; border-left: 1px solid var(--line); padding-left: 20px; }
+    .section-index h2 { font: 11px/1.5 var(--sans); text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+    .section-index a { display: block; font-size: 12px; line-height: 1.5; text-decoration: none; color: var(--muted); padding: 7px 0; overflow-wrap: anywhere; }
+    .section-index a:hover { color: var(--jade); text-decoration: underline; }
+    .folio { margin-top: 28px; padding-top: 18px; border-top: 1px solid var(--line); font: 11px/1.7 monospace; color: var(--muted); }
+    .archive-image { width: 100%; height: 100px; object-fit: cover; filter: grayscale(1); opacity: .75; display: block; margin-top: 24px; border-radius: 3px; }
+    .timeline section { padding: 0 0 5px 25px; border-top: 0; border-left: 2px solid var(--line); position: relative; }
+    .timeline section::before { content: ""; position: absolute; width: 10px; height: 10px; border: 2px solid var(--wine); background: var(--paper); border-radius: 50%; left: -6px; top: 10px; }
+    .timeline ul { padding-left: 20px; }
+    .timeline li { padding-left: 5px; margin: 0 0 20px; }
+    .timeline section.empty { color: var(--muted); }
+    .timeline section.empty h2 { font-size: 19px; margin-bottom: 0; }
+    .search-results h1 { font-size: 32px; }
+    .result { display: block; text-decoration: none; border-top: 1px solid var(--line); padding: 22px 0; }
+    .result:hover strong { text-decoration: underline; }
+    .result small { color: var(--wine); font-size: 11px; text-transform: uppercase; }
+    .result strong { display: block; font: 22px/1.3 var(--serif); margin: 5px 0 10px; }
+    .result p { color: var(--muted); font-size: 14px; margin: 0; }
+    #result-count { color: var(--muted); font-size: 13px; }
+    .empty-state { padding: 25px 0; color: var(--muted); }
+    @media (min-width: 801px) { main { animation: appear .25s ease-out; } @keyframes appear { from { opacity: .4; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } } }
+    @media (max-width: 1100px) { .reading-layout { grid-template-columns: minmax(0, 1fr); max-width: 810px; } .section-index { position: static; grid-row: 1; padding: 0 0 14px; border: 0; border-bottom: 1px solid var(--line); } .section-index nav { display: flex; flex-wrap: wrap; gap: 0 20px; } .section-index h2, .folio, .archive-image { display: none; } .reading-layout { gap: 22px; } }
+    @media (max-width: 800px) { .shell { display: block; } .sidebar { position: static; height: auto; padding: 22px 22px 14px; } .brand { font-size: 25px; } .brand small { margin-bottom: 5px; } .sidebar .divider, .nav-label, .sidebar-foot { display: none; } .navigation { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 20px; } .navigation a { padding: 8px 10px; font-size: 13px; } .nav-number { display: none; } .navigation.chronology-link { margin-top: 4px; } .sidebar nav { display: flex; flex-wrap: wrap; align-items: end; gap: 4px; } .navigation.chronology-link { margin-top: 20px; } .topbar { padding: 14px 22px; gap: 16px; min-height: 0; } .breadcrumb { display: none; } .searchbox { margin: 0; width: 100%; } .searchbox label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); } .reading-layout { padding: 25px 22px 55px; } h1 { font-size: 36px; } .lead { font-size: 20px; } .print { flex-shrink: 0; } }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } main { animation: none; } }
+    @media print { .sidebar, .topbar, .section-index, .skip { display: none; } body { color: #000; background: #fff; font-size: 11pt; } .shell, .reading-layout { display: block; margin: 0; padding: 0; } article section { break-inside: avoid; } a { color: inherit; } h1 { font-size: 30pt; } }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#content">Aller au contenu</a>
+  <div class="shell">
+    <aside class="sidebar" aria-label="Archives">
+      <a class="brand" href="#nurad"><small>Autochthonia · Exalted</small>Archives de<br>l'Assemblée</a>
+      <div class="divider"></div>
+      <p class="nav-label">Factions</p>
+      <nav aria-label="Navigation principale">
+        <div class="navigation">
+          <a href="#nurad" data-page="nurad" aria-current="page"><span class="nav-number">01</span>Nurad</a>
+          <a href="#yugash" data-page="yugash"><span class="nav-number">02</span>Yugash</a>
+          <a href="#fray" data-page="fray"><span class="nav-number">03</span>Empire de Fray</a>
+        </div>
+        <div class="navigation chronology-link"><a href="#chronologie" data-page="chronologie"><span class="nav-number">04</span>Chronologie</a></div>
+      </nav>
+      <div class="sidebar-foot">Carnet de campagne<strong>RY 268 · Saison de l'Air</strong></div>
+    </aside>
+    <div class="content">
+      <header class="topbar">
+        <span class="breadcrumb">Archives / <span id="current-label">Nurad</span></span>
+        <div class="searchbox"><label for="search">Rechercher</label><input id="search" type="search" placeholder="Rechercher dans les archives…" autocomplete="off" aria-controls="results" disabled></div>
+        <button class="print" id="print" type="button" hidden>Imprimer</button>
+      </header>
+      <div class="reading-layout">
+        <main id="content" tabindex="-1">
+          <noscript><p>Les fiches sont disponibles ci-dessous. La recherche nécessite JavaScript.</p></noscript>
+          <div class="search-results" id="results" hidden><p class="eyebrow">Index des archives</p><h1>Recherche</h1><p id="result-count" role="status"></p><div id="result-list"></div></div>
+          <article id="nurad" data-route="nurad" data-title="Nurad">
+            <header><p class="eyebrow">01 / Faction</p><h1>Nurad</h1><div class="metadata"><span>Autochthonia</span><span>RY 268 · Air</span></div><p class="location">Sphère métallique creuse à l'intérieur d'Autochthon</p><p class="lead">Nurad est le pays d'origine des trois Exaltés alchimiques de la Spirale des Vents. Ancien foyer d'innovation, il reste marqué par la catastrophe qui a enfermé Perygra dans le cristal et par les divergences entre Shastar, attachée à un progrès prudent, et Wisant, favorable à l'expérimentation.</p><p>Le Fléau menace aujourd'hui le pays et ses ressources. C'est dans ce contexte que les Alchimiques ont gagné Perygra, puis franchi un passage vers la Création.</p></header>
+            <section><h2>Institutions et ressources</h2><h3>Le Tripartite</h3><p>L'Assemblée nationale du Tripartite siège à Shastar. Les assemblées municipales et les métropoles participent également à la vie politique de Nurad. Les Champions sont censés rester publiquement neutres dans les grandes querelles politiques.</p><h3>Les dirigeables</h3><p>Les dirigeables assurent un important trafic entre les cités et constituent la principale exportation du pays. Wisant est un centre de construction aéronautique et de recherche.</p><h3>Le poste de la Spirale des Vents</h3><p>Le poste est à l'origine de la création des trois Exaltés alchimiques en RY 267. Son chercheur leur a fourni une explication différente de la catastrophe de Perygra.</p><h3>La plateforme transdimensionnelle</h3><p>Le groupe a utilisé cette plateforme pour atteindre une manse de Bois près de Fray, en Création. Les conditions d'un éventuel retour restent à établir.</p></section>
+            <section><h2>Lieux</h2><h3>Shastar, la Cité de Pierre</h3><p>Capitale de Nurad, Shastar borde le réservoir de Dir, un immense lac d'huile. Elle représente le pôle prudent et traditionaliste du pays.</p><h3>Wisant, la Cité d'en Haut</h3><p>Suspendue au sommet de la sphère nationale, cette métropole d'orichalque fournit un cycle artificiel de lumière et d'obscurité. Elle est associée à la recherche et à l'expérimentation.</p><h3>Perygra</h3><p>L'ancienne capitale est enfermée dans le cristal. Les Alchimiques sont entrés secrètement dans la cité et y ont rencontré Xnebeth. Ils ont négocié un droit de passage en échange d'un geas qui renforce les secrets de Perygra et en interdit l'entrée à tout mortel.</p></section>
+            <section><h2>Personnages</h2><h3>Perfected Hydraulic Grace, devenue Perygra</h3><p>Fondatrice de Nurad, elle incarne son âge d'or technique et artistique. Le sort de sa cité demeure un avertissement pour les uns et une énigme pour les autres.</p><h3>Le chercheur de la Spirale des Vents</h3><p>Selon lui, Perygra aurait été punie pour avoir essayé d'ouvrir un passage vers la Création, et non pour avoir tenté de contacter l'âme d'Autochthon. Cette explication reste son témoignage.</p><h3>Xnebeth</h3><p>Sous-ministre de Ku et dieu des secrets, Xnebeth a été rencontré à Perygra. Il est l'interlocuteur avec lequel le groupe a négocié son droit de passage et le geas qui l'accompagne.</p></section>
+            <section><h2>Relations</h2><h3>Fray</h3><p>Les Alchimiques ont pris contact avec la cour de Hanto Galina en se faisant passer pour des esprits. Ce premier échange avec <a href="#fray">Fray</a> n'a pas encore donné lieu à une alliance officielle avec Nurad.</p></section>
+            <section><h2>Motivations et tensions</h2><p>Nurad doit faire face au Fléau sans répéter les catastrophes du passé. La prudence et l'expérimentation offrent des réponses différentes à cette menace. Pour les Alchimiques, le passage vers la Création ouvre la possibilité de nouveaux contacts, tandis que le geas négocié à Perygra demeure contraignant.</p></section>
+          </article>
+          <article id="yugash" data-route="yugash" data-title="Yugash">
+            <header><p class="eyebrow">02 / Faction</p><h1>Yugash</h1><div class="metadata"><span>Autochthonia</span><span>RY 268 · Air</span></div><p class="location">Archipel des Engrenages · Système musculaire d'Autochthon</p><p class="lead">Yugash est une nation d'explorateurs encore marquée par la guerre des Cendres contre Sova. Ses cités occupent les cavités de plaques immenses qui pivotent et s'emboîtent comme des engrenages. Les mouvements de cet archipel peuvent isoler le pays pendant des mois et rendent les expéditions de récupération essentielles à sa survie.</p><p>La reconstruction s'accompagne d'une importante ferveur religieuse autour des enseignements de Sirin.</p></header>
+            <section><h2>Institutions et ressources</h2><h3>Le Tripartite</h3><p>Le grand autocrate Kerok dirige la faction sirinite du Tripartite. La Théomachratie tient une place importante dans la vie publique. La reconstruction, l'approvisionnement des cités et le projet de pèlerinage occupent les débats nationaux.</p><h3>Les expéditions et les augures du Fléau</h3><p>Les équipes de récupération explorent les régions sauvages du Grand Façonneur pour approvisionner le pays. Les augures du Fléau étudient les manifestations de la corruption et cherchent à en prévoir certaines formes.</p><h3>La foi sirinite</h3><p>Sirin affirmait avoir découvert un chemin vers l'esprit d'Autochthon et avoir reçu l'aide du ministre divin Kadmek pour revenir. Il devait conduire un grand pèlerinage, mais mourut avant le départ. Ses enseignements entretiennent l'espoir d'un renouveau et se diffusent au-delà de Yugash. Le récit de sa rencontre demeure une affirmation du prophète, non une expérience vérifiée par les personnages.</p><h3>La sociocinétique et la culture</h3><p>Yugash emploie ouvertement la sociocinétique, une discipline associant études sociales, calculs statistiques et Charmes de modélisation, pour organiser le travail et la production. Ses prévisions ne sont pas infaillibles.</p><p>Les chants et les rythmes accompagnent le travail ; la danse occupe une place importante dans les loisirs et l'expression collective. Le <em>symbolary</em> combine gestes, postures et inflexions vocales pour transmettre des messages.</p></section>
+            <section><h2>Lieux</h2><h3>Kadar, la capitale</h3><p>Métropole d'argent de lune, Kadar est le centre politique et logistique de Yugash et un foyer de la foi sirinite. Ses six disques superposés sont reliés par des ascenseurs pneumatiques.</p><h3>Les cités de l'archipel</h3><p>Ot et Het comptent parmi les métropoles du pays. Het est connue pour son attachement à l'orthodoxie religieuse. Kereth a été arrachée à l'archipel à la fin de la guerre ; sa séparation reste une des pertes qui marquent Yugash.</p></section>
+            <section><h2>Personnages</h2><h3>Kerok, grand autocrate</h3><p>Kerok a accédé au pouvoir après la mort de Sirin, porté par ses partisans. Il représente le gouvernement sirinite engagé dans le redressement national.</p><h3>Sirin, le prophète disparu</h3><p>Ancien membre du Populat, vétéran et explorateur, Sirin a été reconnu comme prophète puis élevé dans la Théomachratie. Sa promesse de pèlerinage lui survit.</p><h3>Halan</h3><p>Halan dirige le culte national. Les missions culturelles qu'il organise associent danse, récits, sociocinétique et diffusion des enseignements religieux.</p><h3>Unhesitatingly Loyal Weapon</h3><p>Cette héroïne de caste d'orichalque est une figure militaire et diplomatique reconnue. Elle défend la reconstruction des capacités offensives de Yugash.</p></section>
+            <section><h2>Relations</h2><h3>Sova</h3><p>La guerre des Cendres a opposé Yugash à Sova. Le traité de Harmegis a officiellement clos le conflit, sans effacer les tensions ni les dommages subis.</p><h3>Claslat et l'Octet</h3><p>Yugash soutient officiellement la coopération encouragée par Claslat et recherche de nouveaux échanges.</p></section>
+            <section><h2>Motivations et tensions</h2><p>Yugash doit reconstruire ses cités et assurer ses ressources malgré une géographie qui interrompt régulièrement ses échanges. La foi sirinite soutient l'effort collectif, mais la reconstruction et le projet de pèlerinage sollicitent tous deux les moyens du pays. La paix avec Sova reste fragile.</p></section>
+          </article>
+          <article id="fray" data-route="fray" data-title="Empire de Fray">
+            <header><p class="eyebrow">03 / Faction</p><h1>Empire de Fray</h1><div class="metadata"><span>Création</span><span>RY 268 · Air</span></div><p class="lead">Fray est la cité près de laquelle les Alchimiques sont arrivés après leur traversée depuis Autochthonia. Ils ont établi un premier contact avec la cour de l'impératrice Hanto Galina en se faisant passer pour des esprits.</p></header>
+            <section><h2>Lieux</h2><h3>La manse de Bois</h3><p>Située près de Fray, cette manse est le point d'arrivée du groupe en Création après l'utilisation de la plateforme transdimensionnelle.</p><h3>La cour de Hanto Galina</h3><p>La cour est le premier interlocuteur du groupe à Fray. Les Alchimiques l'ont approchée sous une identité d'esprits.</p></section>
+            <section><h2>Personnages</h2><h3>Hanto Galina</h3><p>Hanto Galina est l'impératrice dont le groupe a approché la cour. Ses intentions envers les nouveaux arrivants restent à découvrir.</p></section>
+            <section><h2>Relations</h2><h3>Les Alchimiques de Nurad</h3><p>Un premier contact est établi, sans accord ni soutien matériel acquis. Les Alchimiques n'ont pas révélé leur identité véritable ; on ignore encore dans quelle mesure leur présentation a convaincu la cour. Aucune alliance officielle avec <a href="#nurad">Nurad</a> n'est conclue.</p></section>
+          </article>
+          <article id="chronologie" class="timeline" data-route="chronologie" data-title="Chronologie">
+            <header><p class="eyebrow">04 / Chronologie</p><h1>Chronologie du groupe</h1><div class="metadata"><span>RY 263–268</span><span>Saison de l'Air</span></div><p class="lead">De la Spirale des Vents à la cour de Fray.</p></header>
+            <section><h2>RY 263</h2><ul><li><strong>Nurad :</strong> Le Fléau atteint le pays. Les gremlins deviennent courants et des rumeurs d'apparition d'Alchimiques apostats se répandent. Ces dernières restent des rumeurs.</li></ul></section>
+            <section class="empty"><h2>RY 264</h2></section>
+            <section class="empty"><h2>RY 265</h2></section>
+            <section class="empty"><h2>RY 266</h2></section>
+            <section><h2>RY 267</h2><ul><li><strong>Nurad :</strong> Le poste de la Spirale des Vents crée les trois Exaltés alchimiques du groupe. Aucun mois précis n'est fixé.</li><li><strong>Perygra, témoignage du chercheur :</strong> Le chercheur du poste attribue la punition de Perygra à une tentative d'ouverture vers la Création, plutôt qu'à une tentative de contact avec l'âme d'Autochthon. Ce témoignage est rattaché au récit de la Spirale des Vents ; la date exacte de sa transmission n'est pas précisée.</li></ul></section>
+            <section><h2>RY 268 · Air</h2><ul><li><strong>Nurad :</strong> Les Alchimiques entrent secrètement dans Perygra. Ils y rencontrent Xnebeth, sous-ministre de Ku et dieu des secrets. Ils négocient avec lui un droit de passage en échange d'un geas qui renforce les secrets de la cité et en interdit l'entrée à tout mortel.</li><li><strong>Fray :</strong> Les Alchimiques utilisent la plateforme transdimensionnelle et arrivent dans une manse de Bois près de Fray. Ils prennent contact avec la cour de l'impératrice Hanto Galina en se faisant passer pour des esprits. Aucun résultat diplomatique plus précis n'est encore consigné.</li></ul></section>
+            <section class="empty"><h2>RY 268 · Eau</h2></section>
+            <section class="empty"><h2>RY 268 · Terre</h2></section>
+            <section class="empty"><h2>RY 268 · Bois</h2></section>
+            <section class="empty"><h2>RY 268 · Feu</h2></section>
+          </article>
+        </main>
+        <aside class="section-index" aria-label="Sommaire" hidden><h2>Dans cette fiche</h2><nav id="toc" aria-label="Sections"></nav><div class="folio">ARCHIVES DE L'ASSEMBLÉE<br>RY 268 / AIR</div><img class="archive-image" id="archive-image" src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&amp;fit=crop&amp;w=400&amp;q=80" alt="" width="165" height="100" loading="lazy" referrerpolicy="no-referrer"></aside>
+      </div>
+    </div>
+  </div>
+  <script>
+    'use strict';
+    const articles = [...document.querySelectorAll('article[data-route]')];
+    const search = document.getElementById('search');
+    const results = document.getElementById('results');
+    const resultList = document.getElementById('result-list');
+    const resultCount = document.getElementById('result-count');
+    const toc = document.getElementById('toc');
+    const indexPanel = document.querySelector('.section-index');
+    const main = document.getElementById('content');
+    const normalize = text => text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase('fr');
+    const records = [];
+    for (const article of articles) {
+      article.id = article.dataset.route;
+      const blocks = [...article.querySelectorAll(':scope > header, :scope > section')];
+      blocks.forEach((block, index) => {
+        const heading = block.querySelector('h1, h2');
+        block.id = `${article.id}-section-${index}`;
+        const body = [...block.querySelectorAll('h3, p, li')].map(element => element.textContent.trim()).join(' ');
+        records.push({ page: article.dataset.title, route: article.id, target: block.id, title: heading.textContent, body, searchable: normalize(`${article.dataset.title} ${heading.textContent} ${body}`) });
+      });
+    }
+    let currentRoute = 'nurad';
+    function showPage(moveFocus = false) {
+      const [requestedRoute, requestedSection] = location.hash.slice(1).split('/');
+      const article = articles.find(item => item.id === requestedRoute) || articles[0];
+      currentRoute = article.id;
+      results.hidden = true;
+      indexPanel.hidden = false;
+      search.value = '';
+      articles.forEach(item => { item.hidden = item !== article; });
+      document.querySelectorAll('[data-page]').forEach(link => {
+        if (link.dataset.page === currentRoute) link.setAttribute('aria-current', 'page');
+        else link.removeAttribute('aria-current');
+      });
+      document.getElementById('current-label').textContent = article.dataset.title;
+      document.title = `${article.dataset.title} · Archives de l'Assemblée`;
+      toc.replaceChildren();
+      for (const record of records.filter(item => item.route === currentRoute)) {
+        const link = document.createElement('a');
+        link.href = `#${currentRoute}/${record.target}`;
+        link.textContent = record.title === article.querySelector('h1').textContent ? 'Synthèse' : record.title;
+        toc.append(link);
+      }
+      if (moveFocus) main.focus({ preventScroll: true });
+      const section = requestedSection && [...article.children].find(item => item.id === requestedSection);
+      if (section) section.scrollIntoView({ behavior: 'instant', block: 'start' });
+      else if (moveFocus) window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+    function showResults() {
+      const query = normalize(search.value.trim());
+      if (!query) { showPage(); return; }
+      articles.forEach(article => { article.hidden = true; });
+      indexPanel.hidden = true;
+      results.hidden = false;
+      resultList.replaceChildren();
+      const terms = query.split(/\s+/);
+      const matches = records.filter(record => terms.every(term => record.searchable.includes(term)));
+      resultCount.textContent = `${matches.length} résultat${matches.length === 1 ? '' : 's'}`;
+      for (const record of matches) {
+        const link = document.createElement('a');
+        link.className = 'result';
+        link.href = `#${record.route}/${record.target}`;
+        const category = document.createElement('small');
+        category.textContent = record.page;
+        const heading = document.createElement('strong');
+        heading.textContent = record.title;
+        const excerpt = document.createElement('p');
+        const firstMatch = normalize(record.body).indexOf(terms[0]);
+        const offset = Math.max(0, firstMatch - 65);
+        excerpt.textContent = `${offset ? '… ' : ''}${record.body.slice(offset, offset + 240)}${record.body.length > offset + 240 ? '…' : ''}`;
+        link.append(category, heading, excerpt);
+        resultList.append(link);
+      }
+      if (!matches.length) {
+        const empty = document.createElement('p');
+        empty.className = 'empty-state';
+        empty.textContent = 'Aucun résultat pour cette recherche.';
+        resultList.append(empty);
+      }
+    }
+    search.disabled = false;
+    search.addEventListener('input', showResults);
+    search.addEventListener('keydown', event => { if (event.key === 'Escape') { search.value = ''; showPage(); } });
+    window.addEventListener('hashchange', () => showPage(true));
+    document.addEventListener('click', event => {
+      const link = event.target.closest('a[href^="#"]');
+      if (link && link.hash === '#content') {
+        event.preventDefault();
+        main.focus({ preventScroll: true });
+        main.scrollIntoView({ behavior: 'instant' });
+        return;
+      }
+      if (link && link.hash === location.hash && link.hash !== '#content') { event.preventDefault(); showPage(true); }
+    });
+    const archiveImage = document.getElementById('archive-image');
+    archiveImage.addEventListener('error', () => { archiveImage.hidden = true; });
+    if (archiveImage.complete && !archiveImage.naturalWidth) archiveImage.hidden = true;
+    const printButton = document.getElementById('print');
+    printButton.hidden = false;
+    printButton.addEventListener('click', () => window.print());
+    showPage();
+  </script>
+</body>
+</html>

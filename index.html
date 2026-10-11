@@ -4,12 +4,17 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
-  <title>Nurad · Archives de l'Assemblée</title>
+  <meta name="theme-color" content="#183d37">
+  <meta name="description" content="Le registre de l'Assemblée des Vents Révélateurs : Nurad, les rencontres en Création et la chronique jusqu'au Bois de RY 268.">
+  <title>Assemblée des Vents Révélateurs · Autochthonia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
-    :root { --paper: #f6f7f3; --white: #fff; --ink: #232d29; --muted: #626e67; --jade: #164e42; --jade-light: #e7efea; --wine: #943e53; --line: #d6ddd6; --serif: "Palatino Linotype", Palatino, Georgia, serif; --sans: "Avenir Next", Avenir, "Trebuchet MS", sans-serif; }
+    :root { --paper: #f1f3f0; --white: #fff; --ink: #26342f; --muted: #57665e; --jade: #245e4e; --jade-light: #e4eee7; --wine: #9a382e; --line: #c7cfc5; --brass: #b69a5c; --serif: "Cormorant Garamond", Palatino, Georgia, serif; --sans: "Barlow", "Avenir Next", sans-serif; }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; scroll-padding-top: 28px; }
-    body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.65 var(--sans); letter-spacing: 0; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font: 17px/1.7 var(--sans); letter-spacing: 0; }
     a { color: var(--jade); text-underline-offset: 4px; }
     button, input { font: inherit; }
     button, a, input { -webkit-tap-highlight-color: transparent; }
@@ -17,47 +22,48 @@
     [hidden] { display: none !important; }
     .skip { position: fixed; top: -100px; left: 20px; z-index: 5; background: white; padding: 12px; }
     .skip:focus { top: 12px; }
-    .shell { display: grid; grid-template-columns: 258px minmax(0, 1fr); min-height: 100vh; }
-    .sidebar { position: sticky; top: 0; align-self: start; height: 100vh; padding: 34px 25px; background: var(--jade); color: #e7efea; display: flex; flex-direction: column; overflow-y: auto; }
-    .brand { color: white; font: 24px/1.18 var(--serif); text-decoration: none; display: block; }
+    .shell { display: grid; grid-template-columns: 246px minmax(0, 1fr); min-height: 100vh; }
+    .sidebar { position: sticky; top: 0; align-self: start; height: 100vh; padding: 30px 22px; background: repeating-linear-gradient(90deg, transparent 0 39px, #ffffff03 40px), #18352f; border-right: 4px double var(--brass); color: #e7efea; display: flex; flex-direction: column; overflow-y: auto; }
+    .brand { color: #f1f3e9; font: 600 27px/1.12 var(--serif); text-decoration: none; display: block; }
     .brand small { display: block; font: 11px/1.5 var(--sans); color: #c0d4c8; margin-bottom: 10px; text-transform: uppercase; }
-    .sidebar .divider { height: 1px; background: #477466; margin: 27px 0; }
+    .sidebar .divider { height: 5px; border-block: 1px solid #778569; margin: 24px 0; }
     .nav-label { font: 11px/1.5 var(--sans); text-transform: uppercase; color: #bfd2c8; margin: 0 12px 9px; }
     .navigation { display: grid; gap: 4px; }
-    .navigation a { display: flex; gap: 12px; align-items: baseline; padding: 10px 12px; border-left: 2px solid transparent; color: #e7efea; text-decoration: none; border-radius: 0 4px 4px 0; }
+    .navigation a { display: flex; gap: 12px; align-items: baseline; padding: 8px 10px; border-left: 2px solid transparent; color: #e7efea; text-decoration: none; border-radius: 0; font-size: 14px; }
     .navigation a:hover { background: #285c4e; }
-    .navigation a[aria-current="page"] { background: #e7efea; color: #164e42; border-left-color: #e5b45a; }
+    .navigation a[aria-current="page"] { background: #e7efea; color: #164e42; border-left-color: #d4aa5e; box-shadow: inset 0 -2px #b8c7ba; }
     .nav-number { font: 11px/1.5 monospace; opacity: .7; flex: 0 0 22px; }
     .chronology-link { margin-top: 23px; }
     .sidebar-foot { margin-top: auto; padding-top: 32px; font-size: 12px; color: #bfd2c8; }
     .sidebar-foot strong { display: block; color: #fff; font-weight: 500; }
-    .content { min-width: 0; }
-    .topbar { border-bottom: 1px solid var(--line); min-height: 84px; padding: 18px 36px; display: flex; align-items: center; gap: 22px; background: #fff; }
-    .breadcrumb { color: var(--muted); font-size: 12px; white-space: nowrap; }
+    .content { min-width: 0; background: linear-gradient(90deg, #dbe2d626 1px, transparent 1px) 0 0 / 48px 48px, var(--paper); }
+    .topbar { border-bottom: 3px double var(--line); min-height: 74px; padding: 14px 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 16px; background: #fafbf8; }
+    .breadcrumb { color: var(--muted); font-size: 12px; }
     .searchbox { display: flex; align-items: center; gap: 10px; width: min(100%, 340px); margin-left: auto; }
     .searchbox label { color: var(--muted); font-size: 12px; }
     input[type="search"] { width: 100%; min-width: 0; height: 40px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 4px; background: var(--paper); color: var(--ink); }
-    .print { border: 0; padding: 8px 0; background: none; color: var(--jade); cursor: pointer; font-size: 12px; }
-    .reading-layout { display: grid; grid-template-columns: minmax(0, 780px) 185px; gap: 46px; max-width: 1130px; margin: 0 auto; padding: 42px 40px 80px; }
+    .print { border: 1px solid var(--line); padding: 7px 10px; background: var(--white); color: var(--jade); cursor: pointer; font-size: 13px; min-height: 40px; display: inline-flex; align-items: center; justify-content: center; gap: 7px; }
+    .print:hover { border-color: var(--jade); background: var(--jade-light); }
+    .print svg { width: 16px; height: 16px; }
+    .reading-layout { display: grid; grid-template-columns: minmax(0, 780px) 170px; gap: 38px; max-width: 1220px; margin: 0 auto; padding: 36px 38px 80px; }
     main { min-width: 0; }
     .eyebrow { font: 11px/1.5 var(--sans); text-transform: uppercase; color: var(--wine); margin: 0 0 10px; }
-    h1 { font: 46px/1.12 var(--serif); margin: 0 0 24px; overflow-wrap: anywhere; }
-    h2 { font: 26px/1.3 var(--serif); margin: 0 0 20px; overflow-wrap: anywhere; }
+    h1 { font: 600 48px/1.04 var(--serif); margin: 0 0 22px; overflow-wrap: anywhere; text-wrap: balance; }
+    h2 { font: 600 30px/1.2 var(--serif); margin: 0 0 20px; overflow-wrap: anywhere; }
     h3 { font: 600 16px/1.45 var(--sans); margin: 25px 0 8px; overflow-wrap: anywhere; }
     p { margin: 0 0 16px; }
     .metadata { margin: 0 0 24px; display: flex; flex-wrap: wrap; gap: 8px 20px; color: var(--muted); font-size: 12px; }
     .metadata span::before { content: ""; display: inline-block; width: 5px; height: 5px; background: var(--wine); margin-right: 7px; vertical-align: middle; }
     .location { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
-    .lead { font: 21px/1.55 var(--serif); }
+    .lead { font: 600 23px/1.45 var(--serif); }
     article section { border-top: 1px solid var(--line); padding-top: 28px; margin-top: 34px; }
-    article header { border-bottom: 3px solid var(--jade); padding-bottom: 10px; }
+    article header { border-bottom: 4px double var(--brass); padding-bottom: 10px; }
     article[data-route="fray"] header { border-color: var(--wine); }
     .section-index { align-self: start; position: sticky; top: 30px; padding-top: 7px; border-left: 1px solid var(--line); padding-left: 20px; }
     .section-index h2 { font: 11px/1.5 var(--sans); text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
     .section-index a { display: block; font-size: 12px; line-height: 1.5; text-decoration: none; color: var(--muted); padding: 7px 0; overflow-wrap: anywhere; }
     .section-index a:hover { color: var(--jade); text-decoration: underline; }
     .folio { margin-top: 28px; padding-top: 18px; border-top: 1px solid var(--line); font: 11px/1.7 monospace; color: var(--muted); }
-    .archive-image { width: 100%; height: 100px; object-fit: cover; filter: grayscale(1); opacity: .75; display: block; margin-top: 24px; border-radius: 3px; }
     .timeline section { padding: 0 0 5px 25px; border-top: 0; border-left: 2px solid var(--line); position: relative; }
     .timeline section::before { content: ""; position: absolute; width: 10px; height: 10px; border: 2px solid var(--wine); background: var(--paper); border-radius: 50%; left: -6px; top: 10px; }
     .timeline ul { padding-left: 20px; }
@@ -72,77 +78,163 @@
     .result p { color: var(--muted); font-size: 14px; margin: 0; }
     #result-count { color: var(--muted); font-size: 13px; }
     .empty-state { padding: 25px 0; color: var(--muted); }
+    .brand-seal { display: grid; place-items: center; width: 48px; height: 48px; margin-bottom: 18px; border: 4px double #d3b778; color: #d3b778; font: 600 30px/1 var(--serif); transform: rotate(-5deg); }
+    .plate { margin-bottom: 22px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; border-block: 1px solid var(--line); padding: 9px 0; color: var(--jade); font-size: 12px; text-transform: uppercase; }
+    .engraving { display: block; width: 100%; height: 170px; margin: 18px 0; background: #173a33; border-block: 4px double var(--brass); }
+    .assembly-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin: 20px 0; }
+    .champion { padding: 16px 0; border-top: 3px solid var(--brass); min-width: 0; }
+    .champion:nth-child(2) { border-color: #9a382e; }
+    .champion:nth-child(3) { border-color: #819992; }
+    .champion h3 { font: 600 22px/1.15 var(--serif); margin: 10px 0; }
+    .champion small { color: var(--muted); font-size: 11px; text-transform: uppercase; }
+    .champion p { font-size: 14px; }
+    .dispatch { border-left: 3px solid var(--wine); padding: 2px 0 2px 18px; margin: 24px 0; }
+    .dispatch h3 { color: var(--wine); margin-top: 0; }
+    .register { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line); margin-top: 18px; }
+    .register a { padding: 15px 12px 15px 0; border-bottom: 1px solid var(--line); text-decoration: none; display: block; }
+    .register strong { display: block; font: 600 23px/1.2 var(--serif); }
+    .register span { display: block; color: var(--muted); font-size: 13px; margin-top: 5px; }
+    .register a:hover strong { text-decoration: underline; }
+    .nav-group { margin-top: 20px; }
+    .nav-details summary { display: none; }
+    .status-line { display: flex; align-items: center; gap: 8px; }
+    .status-line::before { content: ""; width: 6px; height: 6px; background: #cbbb80; flex: 0 0 6px; }
+    .section-index { border-color: var(--brass); }
+    .section-index a[aria-current="location"] { color: var(--jade); font-weight: 600; }
+    .article-footer { margin-top: 34px; padding-top: 15px; border-top: 3px double var(--line); display: flex; justify-content: space-between; gap: 20px; color: var(--muted); font-size: 12px; }
+    @media (max-width: 600px) { .assembly-grid { grid-template-columns: 1fr; gap: 0; } .champion { padding: 14px 0 4px; } .champion h3 { font-size: 23px; } .register { grid-template-columns: 1fr; } .engraving { height: 175px; } .brand-seal { display: none; } }
     @media (min-width: 801px) { main { animation: appear .25s ease-out; } @keyframes appear { from { opacity: .4; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } } }
     @media (max-width: 1100px) { .reading-layout { grid-template-columns: minmax(0, 1fr); max-width: 810px; } .section-index { position: static; grid-row: 1; padding: 0 0 14px; border: 0; border-bottom: 1px solid var(--line); } .section-index nav { display: flex; flex-wrap: wrap; gap: 0 20px; } .section-index h2, .folio, .archive-image { display: none; } .reading-layout { gap: 22px; } }
     @media (max-width: 800px) { .shell { display: block; } .sidebar { position: static; height: auto; padding: 22px 22px 14px; } .brand { font-size: 25px; } .brand small { margin-bottom: 5px; } .sidebar .divider, .nav-label, .sidebar-foot { display: none; } .navigation { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 20px; } .navigation a { padding: 8px 10px; font-size: 13px; } .nav-number { display: none; } .navigation.chronology-link { margin-top: 4px; } .sidebar nav { display: flex; flex-wrap: wrap; align-items: end; gap: 4px; } .navigation.chronology-link { margin-top: 20px; } .topbar { padding: 14px 22px; gap: 16px; min-height: 0; } .breadcrumb { display: none; } .searchbox { margin: 0; width: 100%; } .searchbox label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); } .reading-layout { padding: 25px 22px 55px; } h1 { font-size: 36px; } .lead { font-size: 20px; } .print { flex-shrink: 0; } }
+    @media (max-width: 800px) { .sidebar { border-right: 0; border-bottom: 4px double var(--brass); padding: 18px 22px; } .brand { font-size: 24px; } .brand br { display: none; } .brand-seal { display: none; } .nav-details { margin-top: 14px; } .nav-details summary { display: list-item; cursor: pointer; color: #d7d9bb; font-size: 13px; min-height: 28px; } .sidebar nav { display: block; padding-top: 10px; } .navigation { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 4px; } .navigation a { min-height: 44px; align-items: center; overflow-wrap: anywhere; } .searchbox { flex: 1 1 170px; width: auto; } .print { min-height: 44px; } input[type="search"] { height: 44px; } .plate { margin-bottom: 16px; } .engraving { height: 145px; } }
     @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } main { animation: none; } }
-    @media print { .sidebar, .topbar, .section-index, .skip { display: none; } body { color: #000; background: #fff; font-size: 11pt; } .shell, .reading-layout { display: block; margin: 0; padding: 0; } article section { break-inside: avoid; } a { color: inherit; } h1 { font-size: 30pt; } }
+    @media print { .sidebar, .topbar, .section-index, .skip, .engraving { display: none; } body, .content { color: #000; background: #fff; font-size: 11pt; } .shell, .reading-layout { display: block; margin: 0; padding: 0; } article section { break-inside: auto; } h2, h3 { break-after: avoid; } a { color: inherit; } h1 { font-size: 30pt; } }
   </style>
 </head>
 <body>
   <a class="skip" href="#content">Aller au contenu</a>
   <div class="shell">
     <aside class="sidebar" aria-label="Archives">
-      <a class="brand" href="#nurad"><small>Autochthonia · Exalted</small>Archives de<br>l'Assemblée</a>
+      <a class="brand" href="#assemblee"><span class="brand-seal" aria-hidden="true">A</span><small>Exalted · Autochthonia</small>Le Registre<br>des Vents Révélateurs</a>
       <div class="divider"></div>
-      <p class="nav-label">Factions</p>
+      <details class="nav-details" open>
+      <summary>Sommaire du registre</summary>
       <nav aria-label="Navigation principale">
+        <p class="nav-label">L'Assemblée</p>
         <div class="navigation">
-          <a href="#nurad" data-page="nurad" aria-current="page"><span class="nav-number">01</span>Nurad</a>
-          <a href="#yugash" data-page="yugash"><span class="nav-number">02</span>Yugash</a>
-          <a href="#fray" data-page="fray"><span class="nav-number">03</span>Empire de Fray</a>
+          <a href="#assemblee" data-page="assemblee" aria-current="page"><span class="nav-number">01</span>Les Vents Révélateurs</a>
+          <a href="#chronologie" data-page="chronologie"><span class="nav-number">02</span>Chronologie</a>
         </div>
-        <div class="navigation chronology-link"><a href="#chronologie" data-page="chronologie"><span class="nav-number">04</span>Chronologie</a></div>
+        <p class="nav-label nav-group">Le monde du Grand Façonneur</p>
+        <div class="navigation">
+          <a href="#nurad" data-page="nurad"><span class="nav-number">03</span>Nurad</a>
+          <a href="#perygra" data-page="perygra"><span class="nav-number">04</span>Perygra</a>
+          <a href="#yugash" data-page="yugash"><span class="nav-number">05</span>Yugash</a>
+        </div>
+        <p class="nav-label nav-group">Rencontres en Création</p>
+        <div class="navigation">
+          <a href="#fray" data-page="fray"><span class="nav-number">06</span>Empire de Fray</a>
+          <a href="#guilde" data-page="guilde"><span class="nav-number">07</span>La Guilde</a>
+          <a href="#jade" data-page="jade"><span class="nav-number">08</span>Conclave de Jade</a>
+          <a href="#fer" data-page="fer"><span class="nav-number">09</span>Faction de Fer</a>
+        </div>
       </nav>
-      <div class="sidebar-foot">Carnet de campagne<strong>RY 268 · Saison de l'Air</strong></div>
+      </details>
+      <div class="sidebar-foot"><span class="status-line">RY 268 · Mois du Bois</span><strong>Urvar · Montagne Impériale</strong></div>
     </aside>
     <div class="content">
       <header class="topbar">
-        <span class="breadcrumb">Archives / <span id="current-label">Nurad</span></span>
+        <span class="breadcrumb">REGISTRE / <span id="current-label">L'Assemblée</span></span>
         <div class="searchbox"><label for="search">Rechercher</label><input id="search" type="search" placeholder="Rechercher dans les archives…" autocomplete="off" aria-controls="results" disabled></div>
-        <button class="print" id="print" type="button" hidden>Imprimer</button>
+        <button class="print" id="print" type="button" title="Imprimer la fiche ouverte" hidden><i data-lucide="printer" aria-hidden="true"></i>Imprimer</button>
       </header>
       <div class="reading-layout">
         <main id="content" tabindex="-1">
-          <noscript><p>Les fiches sont disponibles ci-dessous. La recherche nécessite JavaScript.</p></noscript>
           <div class="search-results" id="results" hidden><p class="eyebrow">Index des archives</p><h1>Recherche</h1><p id="result-count" role="status"></p><div id="result-list"></div></div>
+          <article id="assemblee" data-route="assemblee" data-title="L'Assemblée">
+            <header>
+              <div class="plate"><span>Registre de l'Assemblée · 01</span><span>RY 268 / Bois</span></div>
+              <p class="eyebrow">Exaltés d'Autochthon · Nurad</p>
+              <h1>L'Assemblée des<br>Vents Révélateurs</h1>
+              <p class="lead">Sauver Nurad. Retrouver les liens qui unissent la Création au Grand Façonneur.</p>
+              <canvas id="autochthon-art" class="engraving" width="1400" height="420" role="img" aria-label="Illustration d'une cité mécanique suspendue au cœur du Grand Façonneur, entre anneaux de jade, conduits et engrenages.">Une cité suspendue dans le corps mécanique d'Autochthon.</canvas>
+              <div class="metadata"><span>Trois Champions</span><span>Origine : Spirale des Vents</span><span>Dernière étape : Urvar</span></div>
+            </header>
+            <section><h2>Les trois Champions</h2><p>Créés en secret par Bisorum et ses équipes au poste de la Spirale des Vents, vous avez reçu l'acceptation officielle du Tripartite de Nurad au mois de la Terre.</p>
+              <div class="assembly-grid">
+                <div class="champion"><small>Orichalque</small><h3>L'Avant-garde de l'Inconnu</h3><p>Explorateur, orateur et bretteur chaleureux. Il a porté votre récit devant le Tripartite de Nurad.</p></div>
+                <div class="champion"><small>Métal-Étoile</small><h3>L'Allocateur de l'Équation Parfaite</h3><p>Savant, ingénieur, occultiste et bureaucrate. Il a proposé la réparation du pont et déchiffré la plateforme.</p></div>
+                <div class="champion"><small>Lune-Argent</small><h3>L'Étoile des Ombres</h3><p>Espion et chasseur, d'un calme froid.</p></div>
+              </div>
+            </section>
+            <section><h2>À Urvar, au mois du Bois</h2><p>Vous avez rencontré le Conclave de Jade en compagnie de Verdaxis et de Dansora. L'espoir d'un retour d'Autochthon se mêle à l'inquiétude devant le Fléau et au ressentiment de ceux qui se souviennent de son départ.</p><div class="dispatch"><h3>Verdaxis est contaminé</h3><p>Auditrice Silencieuse vous a avertis du danger de la Contagion pour les Autochthoniens. Les Alchimiques sont immunisés ; les mortels ne partagent pas cette protection. Dansora a décidé de rester à Urvar plutôt que de retourner vers Autochthon.</p><a href="#fer">Auditrice Silencieuse et la Faction de Fer</a></div></section>
+            <section><h2>Les liens établis</h2><div class="register">
+              <a href="#perygra"><strong>Perygra</strong><span>Des volontaires installés, une cité à restaurer.</span></a>
+              <a href="#fray"><strong>Fray &amp; la Guilde</strong><span>Deux Warstriders réparés, un pont et des vivres.</span></a>
+              <a href="#jade"><strong>Le Conclave de Jade</strong><span>Les enfants du Grand Façonneur, restés en Création.</span></a>
+              <a href="#fer"><strong>La Faction de Fer</strong><span>Chagrin Naissant et Auditrice Silencieuse.</span></a>
+            </div></section>
+            <section><h2>Un monde encore à découvrir</h2><p>Vous connaissez Nurad, ses cités et les nations d'Autochthonia. La Création vous est bien moins familière. Vous savez que l'Impératrice Écarlate est revenue, mais les affaires de L'Empire Ecarlate vous restent largement étrangères.</p><p>Votre quête vous conduit vers les mystères qui relient les deux mondes. Bisorum attribue la catastrophe de Perygra à une tentative d'ouverture vers la Création : c'est l'explication qu'il vous a transmise.</p></section>
+          </article>
           <article id="nurad" data-route="nurad" data-title="Nurad">
-            <header><p class="eyebrow">01 / Faction</p><h1>Nurad</h1><div class="metadata"><span>Autochthonia</span><span>RY 268 · Air</span></div><p class="location">Sphère métallique creuse à l'intérieur d'Autochthon</p><p class="lead">Nurad est le pays d'origine des trois Exaltés alchimiques de la Spirale des Vents. Ancien foyer d'innovation, il reste marqué par la catastrophe qui a enfermé Perygra dans le cristal et par les divergences entre Shastar, attachée à un progrès prudent, et Wisant, favorable à l'expérimentation.</p><p>Le Fléau menace aujourd'hui le pays et ses ressources. C'est dans ce contexte que les Alchimiques ont gagné Perygra, puis franchi un passage vers la Création.</p></header>
-            <section><h2>Institutions et ressources</h2><h3>Le Tripartite</h3><p>L'Assemblée nationale du Tripartite siège à Shastar. Les assemblées municipales et les métropoles participent également à la vie politique de Nurad. Les Champions sont censés rester publiquement neutres dans les grandes querelles politiques.</p><h3>Les dirigeables</h3><p>Les dirigeables assurent un important trafic entre les cités et constituent la principale exportation du pays. Wisant est un centre de construction aéronautique et de recherche.</p><h3>Le poste de la Spirale des Vents</h3><p>Le poste est à l'origine de la création des trois Exaltés alchimiques en RY 267. Son chercheur leur a fourni une explication différente de la catastrophe de Perygra.</p><h3>La plateforme transdimensionnelle</h3><p>Le groupe a utilisé cette plateforme pour atteindre une manse de Bois près de Fray, en Création. Les conditions d'un éventuel retour restent à établir.</p></section>
-            <section><h2>Lieux</h2><h3>Shastar, la Cité de Pierre</h3><p>Capitale de Nurad, Shastar borde le réservoir de Dir, un immense lac d'huile. Elle représente le pôle prudent et traditionaliste du pays.</p><h3>Wisant, la Cité d'en Haut</h3><p>Suspendue au sommet de la sphère nationale, cette métropole d'orichalque fournit un cycle artificiel de lumière et d'obscurité. Elle est associée à la recherche et à l'expérimentation.</p><h3>Perygra</h3><p>L'ancienne capitale est enfermée dans le cristal. Les Alchimiques sont entrés secrètement dans la cité et y ont rencontré Xnebeth. Ils ont négocié un droit de passage en échange d'un geas qui renforce les secrets de Perygra et en interdit l'entrée à tout mortel.</p></section>
-            <section><h2>Personnages</h2><h3>Perfected Hydraulic Grace, devenue Perygra</h3><p>Fondatrice de Nurad, elle incarne son âge d'or technique et artistique. Le sort de sa cité demeure un avertissement pour les uns et une énigme pour les autres.</p><h3>Le chercheur de la Spirale des Vents</h3><p>Selon lui, Perygra aurait été punie pour avoir essayé d'ouvrir un passage vers la Création, et non pour avoir tenté de contacter l'âme d'Autochthon. Cette explication reste son témoignage.</p><h3>Xnebeth</h3><p>Sous-ministre de Ku et dieu des secrets, Xnebeth a été rencontré à Perygra. Il est l'interlocuteur avec lequel le groupe a négocié son droit de passage et le geas qui l'accompagne.</p></section>
-            <section><h2>Relations</h2><h3>Fray</h3><p>Les Alchimiques ont pris contact avec la cour de Hanto Galina en se faisant passer pour des esprits. Ce premier échange avec <a href="#fray">Fray</a> n'a pas encore donné lieu à une alliance officielle avec Nurad.</p></section>
-            <section><h2>Motivations et tensions</h2><p>Nurad doit faire face au Fléau sans répéter les catastrophes du passé. La prudence et l'expérimentation offrent des réponses différentes à cette menace. Pour les Alchimiques, le passage vers la Création ouvre la possibilité de nouveaux contacts, tandis que le geas négocié à Perygra demeure contraignant.</p></section>
+            <header><p class="eyebrow">03 / Nation d'Autochthonia</p><h1>Nurad</h1><div class="metadata"><span>Votre patrie</span><span>RY 268 · Bois</span></div><p class="location">Une vaste sphère métallique creuse, à l'intérieur d'Autochthon</p><p class="lead">Un pays d'inventeurs, partagé entre la mémoire d'une catastrophe et la nécessité d'inventer son salut.</p><p>Le Fléau est entré en contact avec Nurad en RY 263. Les ressources s'épuisent, les conduits nutritifs se tarissent et les réparations sont reportées. Le passage vers la Création vous a permis de chercher de nouveaux soutiens.</p></header>
+            <section><h2>Le Tripartite et l'Assemblée</h2><p>L'Assemblée nationale du Tripartite siège à Shastar. Les assemblées municipales et les métropoles exercent aussi une influence considérable. Les Champions sont censés rester publiquement neutres dans les querelles politiques.</p><h3>Eau · Une reconnaissance difficile</h3><p>L'Avant-garde de l'Inconnu a exposé votre situation au Tripartite. Votre création illégale a choqué ses membres, mais l'arrivée de vivres et d'une cache de Matériaux Magiques a convaincu la plupart d'entre eux du potentiel de vos découvertes. Verdaxis a refusé d'accepter le sacrilège de votre création.</p><h3>Terre · L'acceptation officielle</h3><p>Le Tripartite a officiellement accepté votre Assemblée. Des volontaires se sont installés définitivement à Perygra pour réparer la cité et récupérer les Âmes Joyaux.</p></section>
+            <section><h2>Les cités et les ressources</h2><h3>Shastar, la Cité de Pierre</h3><p>La capitale borde le réservoir de Dir, un immense lac d'huile. Ses falaises de jade blanc sont noircies par la suie. Saven y défend une stratégie de fortification et un progrès prudent.</p><h3>Wisant, la Cité d'en Haut</h3><p>Cette métropole d'orichalque est suspendue au sommet de la sphère. Elle fournit un cycle artificiel de lumière et d'obscurité. Ses laboratoires, ses automates et ses chantiers aéronautiques poursuivent l'héritage d'innovation de la fondatrice.</p><h3>Les dirigeables et le peuple des Portes</h3><p>Le trafic entre les cités repose sur les dirigeables, principale exportation de Nurad. Les clans du peuple des Portes parcourent la paroi intérieure de la sphère, commercent avec les cités et entretiennent les mécanismes du Grand Façonneur.</p><h3>Les fortifications</h3><p>La stratégie officielle prévoit des réserves et des protections pour traverser le Fléau. Les ressources permettraient de couvrir environ 80 % des métropoles, laissant les autres communautés et les itinéraires nomades particulièrement vulnérables.</p><p><a href="#perygra">Perygra, la cité dans le cristal</a>, accueille désormais votre base permanente.</p></section>
+            <section><h2>Les visages de Nurad</h2><h3>Dansora · Grand Autocrate</h3><p>Administrateur sage et vieillissant, Dansora vous a accompagnés à Urvar avec Verdaxis pour vérifier vos récits. Après la découverte de la contamination de Verdaxis, il a décidé de rester et de ne pas rentrer vers Autochthon.</p><h3>Verdaxis · Haut Célébrant</h3><p>Traditionaliste attaché au dogme et aux hiérarchies, il s'est opposé à votre création. C'est sur son insistance que les deux dirigeants sont venus à Urvar. Il s'y est révélé contaminé par la Contagion.</p><h3>Bisorum · Spirale des Vents</h3><p>Administrateur du poste, ce génie a été relégué loin du centre du pouvoir à cause de ses idées novatrices. Avec ses équipes, il vous a créés en secret pour offrir une issue à Nurad.</p><h3>Saven · Shastar</h3><p>Dirigeant expérimenté et conservateur, il défend la fortification de sa ville. Après avoir perdu ses jambes en sauvant des ouvriers, il utilise des prothèses sophistiquées ou un fauteuil d'acier stellaire contrôlé par la pensée.</p><h3>Djerak · Wisant</h3><p>Marchand talentueux issu des sodalités, il a transformé les laboratoires de Wisant en une industrie incomparable grâce à sa capacité à mobiliser les autres.</p><h3>Grâce Hydraulique Parfaite</h3><p>Fondatrice de Nurad devenue Perygra, elle associait progrès technique et épanouissement artistique. Son héritage inspire les partisans du progrès autant qu'il nourrit les craintes de ses adversaires.</p></section>
+            <section><h2>Les soutiens extérieurs</h2><p>À <a href="#fray">Fray</a>, vous avez obtenu les Métaux Magiques d'un Warstrider contre la réparation de deux autres. La <a href="#guilde">Guilde</a> propose de financer le pont et de fournir des vivres ; Fray vous donne les terres près de la Manse.</p><p>À <a href="#jade">Urvar</a>, les Jadeborns ont accueilli votre récit avec des sentiments partagés. Chagrin Naissant et <a href="#fer">Auditrice Silencieuse</a> se sont présentés comme membres de la Faction de Fer.</p><p>Yugash dispose d'une délégation à Shastar ; ses augures du Fléau collaborent avec les sodalités de Nurad. Gulak figure parmi les refuges envisagés pour une évacuation partielle.</p></section>
+          </article>
+          <article id="perygra" data-route="perygra" data-title="Perygra">
+            <header><p class="eyebrow">04 / Cité &amp; passage</p><h1>Perygra</h1><div class="metadata"><span>Autochthonia</span><span>Base permanente</span><span>25 destinations identifiées</span></div><p class="lead">Une capitale prisonnière du cristal. Un passage vers la Création. Des volontaires qui ont accepté de ne plus repartir.</p></header>
+            <section><h2>La cité et son énigme</h2><p>Grâce Hydraulique Parfaite, la fondatrice de Nurad, était devenue cette métropole. Sa disparition dans le cristal a brisé un âge d'innovation et profondément divisé le pays.</p><p>Bisorum et les chercheurs de la Spirale des Vents vous ont transmis une autre explication de la catastrophe : Perygra aurait tenté d'ouvrir un passage vers la Création, plutôt que de contacter l'âme d'Autochthon.</p></section>
+            <section><h2>Gnexbeth et le droit de passage</h2><h3>Air · Le premier geas</h3><p>Vous avez rencontré Gnexbeth, sous-ministre de Ku et dieu des secrets, dans la cité. Il a accepté votre présence en échange d'un geas qui renforce les secrets de Perygra et en interdit l'entrée aux mortels.</p><h3>Eau · Une autorisation conditionnelle</h3><p>Après négociation, Gnexbeth a accepté la venue de mortels autochthoniens, à condition qu'ils ne puissent plus sortir de la cité une fois entrés.</p><div class="dispatch"><h3>Entrer signifie rester</h3><p>L'autorisation concerne une installation définitive. Elle ne donne pas aux mortels la liberté de circuler à travers Perygra.</p></div></section>
+            <section><h2>La restauration</h2><p>Au mois de la Terre, un groupe de volontaires s'est installé de façon permanente. Leur travail consiste à réparer la cité et à récupérer les Âmes Joyaux des défunts encastrés dans le cristal.</p><p>Cette présence accompagne l'acceptation officielle de l'Assemblée par le Tripartite de Nurad.</p></section>
+            <section><h2>La Plateforme Transdimensionnelle</h2><p>L'Allocateur de l'Équation Parfaite a déchiffré le fonctionnement de la plateforme et identifié vingt-cinq destinations possibles.</p><div class="register"><a href="#fray"><strong>La Manse de Bois</strong><span>Près de Fray · votre arrivée en Création.</span></a><a href="#jade"><strong>La manse de Terre</strong><span>Montagne Impériale · le chemin de Kork Tak.</span></a></div></section>
           </article>
           <article id="yugash" data-route="yugash" data-title="Yugash">
-            <header><p class="eyebrow">02 / Faction</p><h1>Yugash</h1><div class="metadata"><span>Autochthonia</span><span>RY 268 · Air</span></div><p class="location">Archipel des Engrenages · Système musculaire d'Autochthon</p><p class="lead">Yugash est une nation d'explorateurs encore marquée par la guerre des Cendres contre Sova. Ses cités occupent les cavités de plaques immenses qui pivotent et s'emboîtent comme des engrenages. Les mouvements de cet archipel peuvent isoler le pays pendant des mois et rendent les expéditions de récupération essentielles à sa survie.</p><p>La reconstruction s'accompagne d'une importante ferveur religieuse autour des enseignements de Sirin.</p></header>
+            <header><p class="eyebrow">05 / Nation d'Autochthonia</p><h1>Yugash</h1><div class="metadata"><span>Autochthonia</span><span>RY 268 · Bois</span></div><p class="location">Archipel des Engrenages · Système musculaire d'Autochthon</p><p class="lead">Yugash est une nation d'explorateurs encore marquée par la guerre des Cendres contre Sova. Ses cités occupent les cavités de plaques immenses qui pivotent et s'emboîtent comme des engrenages. Les mouvements de cet archipel peuvent isoler le pays pendant des mois et rendent les expéditions de récupération essentielles à sa survie.</p><p>La reconstruction s'accompagne d'une importante ferveur religieuse autour des enseignements de Sirin.</p></header>
             <section><h2>Institutions et ressources</h2><h3>Le Tripartite</h3><p>Le grand autocrate Kerok dirige la faction sirinite du Tripartite. La Théomachratie tient une place importante dans la vie publique. La reconstruction, l'approvisionnement des cités et le projet de pèlerinage occupent les débats nationaux.</p><h3>Les expéditions et les augures du Fléau</h3><p>Les équipes de récupération explorent les régions sauvages du Grand Façonneur pour approvisionner le pays. Les augures du Fléau étudient les manifestations de la corruption et cherchent à en prévoir certaines formes.</p><h3>La foi sirinite</h3><p>Sirin affirmait avoir découvert un chemin vers l'esprit d'Autochthon et avoir reçu l'aide du ministre divin Kadmek pour revenir. Il devait conduire un grand pèlerinage, mais mourut avant le départ. Ses enseignements entretiennent l'espoir d'un renouveau et se diffusent au-delà de Yugash. Le récit de sa rencontre demeure une affirmation du prophète, non une expérience vérifiée par les personnages.</p><h3>La sociocinétique et la culture</h3><p>Yugash emploie ouvertement la sociocinétique, une discipline associant études sociales, calculs statistiques et Charmes de modélisation, pour organiser le travail et la production. Ses prévisions ne sont pas infaillibles.</p><p>Les chants et les rythmes accompagnent le travail ; la danse occupe une place importante dans les loisirs et l'expression collective. Le <em>symbolary</em> combine gestes, postures et inflexions vocales pour transmettre des messages.</p></section>
             <section><h2>Lieux</h2><h3>Kadar, la capitale</h3><p>Métropole d'argent de lune, Kadar est le centre politique et logistique de Yugash et un foyer de la foi sirinite. Ses six disques superposés sont reliés par des ascenseurs pneumatiques.</p><h3>Les cités de l'archipel</h3><p>Ot et Het comptent parmi les métropoles du pays. Het est connue pour son attachement à l'orthodoxie religieuse. Kereth a été arrachée à l'archipel à la fin de la guerre ; sa séparation reste une des pertes qui marquent Yugash.</p></section>
             <section><h2>Personnages</h2><h3>Kerok, grand autocrate</h3><p>Kerok a accédé au pouvoir après la mort de Sirin, porté par ses partisans. Il représente le gouvernement sirinite engagé dans le redressement national.</p><h3>Sirin, le prophète disparu</h3><p>Ancien membre du Populat, vétéran et explorateur, Sirin a été reconnu comme prophète puis élevé dans la Théomachratie. Sa promesse de pèlerinage lui survit.</p><h3>Halan</h3><p>Halan dirige le culte national. Les missions culturelles qu'il organise associent danse, récits, sociocinétique et diffusion des enseignements religieux.</p><h3>Unhesitatingly Loyal Weapon</h3><p>Cette héroïne de caste d'orichalque est une figure militaire et diplomatique reconnue. Elle défend la reconstruction des capacités offensives de Yugash.</p></section>
-            <section><h2>Relations</h2><h3>Sova</h3><p>La guerre des Cendres a opposé Yugash à Sova. Le traité de Harmegis a officiellement clos le conflit, sans effacer les tensions ni les dommages subis.</p><h3>Claslat et l'Octet</h3><p>Yugash soutient officiellement la coopération encouragée par Claslat et recherche de nouveaux échanges.</p></section>
+            <section><h2>Relations</h2><h3>Sova</h3><p>La guerre des Cendres a opposé Yugash à Sova. Le traité de Harmegis a officiellement clos le conflit, sans effacer les tensions ni les dommages subis.</p><h3>Claslat et l'Octet</h3><p>Yugash soutient officiellement la coopération encouragée par Claslat et recherche de nouveaux échanges.</p><h3>Nurad</h3><p>Une délégation yugashienne occupe l'ambassade de Shastar. Ses spécialistes du Fléau travaillent avec les sodalités locales, et Yugash soutient les demandes d'aide de Nurad auprès de l'Octet.</p></section>
             <section><h2>Motivations et tensions</h2><p>Yugash doit reconstruire ses cités et assurer ses ressources malgré une géographie qui interrompt régulièrement ses échanges. La foi sirinite soutient l'effort collectif, mais la reconstruction et le projet de pèlerinage sollicitent tous deux les moyens du pays. La paix avec Sova reste fragile.</p></section>
           </article>
           <article id="fray" data-route="fray" data-title="Empire de Fray">
-            <header><p class="eyebrow">03 / Faction</p><h1>Empire de Fray</h1><div class="metadata"><span>Création</span><span>RY 268 · Air</span></div><p class="lead">Fray est la cité près de laquelle les Alchimiques sont arrivés après leur traversée depuis Autochthonia. Ils ont établi un premier contact avec la cour de l'impératrice Hanto Galina en se faisant passer pour des esprits.</p></header>
-            <section><h2>Lieux</h2><h3>La manse de Bois</h3><p>Située près de Fray, cette manse est le point d'arrivée du groupe en Création après l'utilisation de la plateforme transdimensionnelle.</p><h3>La cour de Hanto Galina</h3><p>La cour est le premier interlocuteur du groupe à Fray. Les Alchimiques l'ont approchée sous une identité d'esprits.</p></section>
-            <section><h2>Personnages</h2><h3>Hanto Galina</h3><p>Hanto Galina est l'impératrice dont le groupe a approché la cour. Ses intentions envers les nouveaux arrivants restent à découvrir.</p></section>
-            <section><h2>Relations</h2><h3>Les Alchimiques de Nurad</h3><p>Un premier contact est établi, sans accord ni soutien matériel acquis. Les Alchimiques n'ont pas révélé leur identité véritable ; on ignore encore dans quelle mesure leur présentation a convaincu la cour. Aucune alliance officielle avec <a href="#nurad">Nurad</a> n'est conclue.</p></section>
+            <header><p class="eyebrow">06 / Rencontres en Création</p><h1>Empire de Fray</h1><div class="metadata"><span>Fleuve d'Argent</span><span>Cour de Hanto Galina</span><span>RY 268 · Bois</span></div><p class="lead">Votre premier point d'ancrage en Création, de la Manse de Bois aux négociations avec la cour.</p><p>Vous avez approché Hanto Galina en vous faisant passer pour des esprits. Votre savoir-faire a ouvert la voie à des échanges concrets.</p></header>
+            <section><h2>La cour et les Warstriders</h2><p>Au mois de l'Air, vous avez négocié avec la cour de l'impératrice Hanto Galina et réparé deux Warstriders. En contrepartie, vous avez obtenu le droit d'emporter les Métaux Magiques du troisième.</p><p>Cette coopération vous a apporté des ressources pour Nurad. Elle ne constitue pas une alliance générale entre les deux pays.</p></section>
+            <section><h2>Le pont du Fleuve d'Argent</h2><p>Au mois de l'Eau, L'Allocateur de l'Équation Parfaite a proposé de réparer un pont délabré du premier âge. L'ouvrage ouvrirait un passage commercial entre le Nord et les Terres des Charognards.</p><h3>La contribution de Fray</h3><p>Fray vous donne les terres à côté de la Manse de Bois en compensation.</p><h3>La contribution de la Guilde</h3><p>Très intéressée, <a href="#guilde">la Guilde</a> se propose de financer le projet et de fournir des vivres à Nurad.</p></section>
+            <section><h2>La Manse de Bois</h2><p>Votre point d'arrivée depuis Perygra se trouve près de la ville. C'est à proximité de cette Manse que Chagrin Naissant, Sidéral de Saturne, vous a rencontrés et proposé son aide au nom de ses convictions au sein de la <a href="#fer">Faction de Fer</a>.</p></section>
+          </article>
+          <article id="guilde" data-route="guilde" data-title="La Guilde">
+            <header><p class="eyebrow">07 / Partenaire commercial</p><h1>La Guilde</h1><div class="metadata"><span>Rencontrée à Fray</span><span>Le projet du pont</span></div><p class="lead">Un intérêt marchand pour vos ouvrages. Une possibilité d'approvisionnement pour Nurad.</p></header>
+            <section><h2>L'offre de l'Eau</h2><p>Votre projet de réparation du pont du Fleuve d'Argent a suscité un vif intérêt. La Guilde se propose de le financer et de fournir des vivres à Nurad.</p><p>L'ouverture d'un passage commercial entre le Nord et les Terres des Charognards est au cœur de cet intérêt.</p></section>
+            <section><h2>Les engagements</h2><h3>La Guilde</h3><p>Financement proposé pour la réparation et fourniture de vivres à Nurad.</p><h3>Fray</h3><p>Terres données à proximité de la Manse de Bois.</p><h3>L'Assemblée</h3><p>Proposition technique de L'Allocateur de l'Équation Parfaite pour remettre en état le pont du premier âge.</p></section>
+            <section><h2>Les termes à préciser</h2><p>Les volumes de vivres, les délais, la propriété et l'entretien du pont restent à préciser, tout comme d'éventuels droits de passage. Votre échange avec les marchands de Fray ne donne pas à lui seul un accord avec tous les membres de la Guilde.</p><p><a href="#fray">Retrouver les accords de Fray</a></p></section>
+          </article>
+          <article id="jade" data-route="jade" data-title="Conclave de Jade">
+            <header><p class="eyebrow">08 / Peuple des Montagnes</p><h1>Le Conclave de Jade</h1><div class="metadata"><span>Kork Tak · Terre</span><span>Urvar · Bois</span></div><p class="lead">Les enfants d'Autochthon restés en Création n'ont oublié ni leur créateur, ni les contraintes qu'il leur a laissées.</p></header>
+            <section><h2>Kork Tak, le premier contact</h2><p>Une destination de la plateforme vous a conduits à une manse de Terre, près du sommet de la Montagne Impériale. Dans la colonie minière de Kork Tak, les Jadeborns vous ont accueillis avec étonnement et vénération.</p><h3>Voix de la Montagne Vivante</h3><p>Ce jeune Artisan vous a fait découvrir leur monde. Il a été votre premier interlocuteur parmi les Jadeborns.</p></section>
+            <section><h2>Urvar et son Conclave</h2><p>Vous avez gagné Urvar, capitale du Conclave de Jade, avec Verdaxis et Dansora. Sur l'insistance de Verdaxis, ils sont venus vérifier vos récits.</p><p>La beauté de la cité, son architecture et ses technologies vous ont éblouis. Ses ouvrages rivalisent avec ceux du monde d'Autochthon. Le Conclave est une immense assemblée d'Artisans représentant toutes les cités-États des Jadeborns.</p></section>
+            <section><h2>Un accueil partagé</h2><p>La plupart des Jadeborns se réjouissent du retour potentiel d'Autochthon et s'inquiètent du Fléau qui le ronge. Mais une part non négligeable lui reproche l'imposition du geas et son abandon.</p><p>Le Conseil a exprimé sa disposition à aider Autochthon par des ressources et de l'aide. Il reste à donner une forme concrète à cet engagement, au milieu de ces sentiments divergents.</p></section>
+            <section><h2>Le quartier diplomatique</h2><p>Auditrice Silencieuse s'est présentée sous l'apparence d'une Jadeborn Sculptée d’Émeraude. Sidérale de Jupiter et membre de la Faction de Fer, elle vous a avertis de la Contagion.</p><div class="dispatch"><h3>La décision de Dansora</h3><p>Verdaxis s'est révélé contaminé. Dansora a choisi de rester sur place plutôt que de retourner vers Autochthon.</p><a href="#fer">L'avertissement d'Auditrice Silencieuse</a></div></section>
+          </article>
+          <article id="fer" data-route="fer" data-title="Faction de Fer">
+            <header><p class="eyebrow">09 / Interlocuteurs sidéraux</p><h1>La Faction de Fer</h1><div class="metadata"><span>Chagrin Naissant</span><span>Auditrice Silencieuse</span></div><p class="lead">Le départ d'Autochthon aurait déséquilibré la Création. C'est la conviction de la petite faction qui vous a offert son aide.</p></header>
+            <section><h2>Chagrin Naissant · Saturne</h2><p>Au mois de l'Eau, Chagrin Naissant vous a interpellés près de la Manse de Bois de Fray. Il s'est présenté comme un Sidéral de Saturne, membre de la faction de fer.</p><p>Selon lui, le départ du Grand Façonneur explique le tumulte de la Création. Il s'est déclaré votre allié et veut vous aider dans votre quête.</p></section>
+            <section><h2>Auditrice Silencieuse · Jupiter</h2><p>Au mois du Bois, cette Sidérale de Jupiter vous a rejoints dans votre quartier diplomatique à Urvar. Elle portait l'apparence d'une Jadeborn Sculptée d’Émeraude et s'est présentée comme une autre membre de la Faction de Fer.</p></section>
+            <section><h2>L'avertissement sur la Contagion</h2><p>Auditrice Silencieuse vous a parlé d'une maladie qui tua 90 % de la population. D'après elle, les habitants de la Création sont aujourd'hui immunisés, mais les Autochthoniens ne le sont pas. Les Alchimiques sont également immunisés.</p><div class="dispatch"><h3>Verdaxis contaminé</h3><p>La menace n'est plus seulement théorique : Verdaxis s'est révélé contaminé à Urvar. Dansora a décidé de rester plutôt que de rentrer vers Autochthon.</p></div></section>
           </article>
           <article id="chronologie" class="timeline" data-route="chronologie" data-title="Chronologie">
-            <header><p class="eyebrow">04 / Chronologie</p><h1>Chronologie du groupe</h1><div class="metadata"><span>RY 263–268</span><span>Saison de l'Air</span></div><p class="lead">De la Spirale des Vents à la cour de Fray.</p></header>
+            <header><p class="eyebrow">02 / Chronique de l'Assemblée</p><h1>De Nurad à Urvar</h1><div class="metadata"><span>RY 263–268</span><span>Dernière entrée · Bois</span></div><p class="lead">La cité de cristal, le Fleuve d'Argent et les enfants du Grand Façonneur.</p></header>
             <section><h2>RY 263</h2><ul><li><strong>Nurad :</strong> Le Fléau atteint le pays. Les gremlins deviennent courants et des rumeurs d'apparition d'Alchimiques apostats se répandent. Ces dernières restent des rumeurs.</li></ul></section>
-            <section class="empty"><h2>RY 264</h2></section>
-            <section class="empty"><h2>RY 265</h2></section>
-            <section class="empty"><h2>RY 266</h2></section>
-            <section><h2>RY 267</h2><ul><li><strong>Nurad :</strong> Le poste de la Spirale des Vents crée les trois Exaltés alchimiques du groupe. Aucun mois précis n'est fixé.</li><li><strong>Perygra, témoignage du chercheur :</strong> Le chercheur du poste attribue la punition de Perygra à une tentative d'ouverture vers la Création, plutôt qu'à une tentative de contact avec l'âme d'Autochthon. Ce témoignage est rattaché au récit de la Spirale des Vents ; la date exacte de sa transmission n'est pas précisée.</li></ul></section>
-            <section><h2>RY 268 · Air</h2><ul><li><strong>Nurad :</strong> Les Alchimiques entrent secrètement dans Perygra. Ils y rencontrent Xnebeth, sous-ministre de Ku et dieu des secrets. Ils négocient avec lui un droit de passage en échange d'un geas qui renforce les secrets de la cité et en interdit l'entrée à tout mortel.</li><li><strong>Fray :</strong> Les Alchimiques utilisent la plateforme transdimensionnelle et arrivent dans une manse de Bois près de Fray. Ils prennent contact avec la cour de l'impératrice Hanto Galina en se faisant passer pour des esprits. Aucun résultat diplomatique plus précis n'est encore consigné.</li></ul></section>
-            <section class="empty"><h2>RY 268 · Eau</h2></section>
-            <section class="empty"><h2>RY 268 · Terre</h2></section>
-            <section class="empty"><h2>RY 268 · Bois</h2></section>
-            <section class="empty"><h2>RY 268 · Feu</h2></section>
+            <section><h2>RY 267 · La Spirale des Vents</h2><ul><li><strong>Votre création :</strong> Bisorum et ses équipes créent en secret les trois Exaltés Alchimiques de l'Assemblée.</li><li><strong>Le récit de Perygra :</strong> Les chercheurs attribuent la catastrophe à une tentative de passage vers la Création, plutôt qu'à un contact avec l'âme d'Autochthon.</li></ul></section>
+            <section><h2>RY 268 · Air</h2><ul><li><strong>Perygra :</strong> Vous entrez secrètement dans la cité et rencontrez Gnexbeth. Votre droit de passage est soumis à un geas qui protège les secrets de la cité et interdit l'entrée aux mortels.</li><li><strong>Fray :</strong> La Plateforme Transdimensionnelle vous conduit à une Manse de Bois. Vous approchez la cour de Hanto Galina sous une identité d'esprits.</li><li><strong>Les Warstriders :</strong> Vous réparez deux Warstriders en échange des Métaux Magiques du troisième.</li></ul></section>
+            <section><h2>RY 268 · Eau</h2><ul><li><strong>Le pont :</strong> L'Allocateur de l'Équation Parfaite propose sa réparation. La Guilde propose financement et vivres ; Fray donne les terres près de la Manse.</li><li><strong>Chagrin Naissant :</strong> Près de la Manse, le Sidéral de Saturne se présente comme membre de la faction de fer et vous offre son aide.</li><li><strong>Shastar :</strong> L'Avant-garde expose votre situation au Tripartite. Les vivres et Matériaux Magiques reçus convainquent la majorité de ses membres, malgré l'opposition de Verdaxis à votre création.</li><li><strong>Perygra :</strong> Gnexbeth autorise les mortels autochthoniens à entrer à condition de ne plus sortir.</li></ul></section>
+            <section><h2>RY 268 · Terre</h2><ul><li><strong>Le Tripartite :</strong> Votre Assemblée est officiellement acceptée.</li><li><strong>Les volontaires :</strong> Un groupe s'installe définitivement à Perygra pour réparer la ville et récupérer les Âmes Joyaux des défunts.</li><li><strong>La plateforme :</strong> L'Allocateur identifie vingt-cinq destinations. Vous en activez une et arrivez dans une manse de Terre près du sommet de la Montagne Impériale.</li><li><strong>Kork Tak :</strong> Les Jadeborns vous accueillent avec étonnement et vénération. Le jeune Artisan Voix de la Montagne Vivante vous fait découvrir leur monde.</li></ul></section>
+            <section><h2>RY 268 · Bois</h2><ul><li><strong>Urvar :</strong> Verdaxis et Dansora vous accompagnent, sur l'insistance du premier. L'architecture et les technologies de la capitale vous éblouissent.</li><li><strong>Le Conclave :</strong> Les Artisans des cités-États reçoivent votre récit. L'espoir et l'inquiétude dominent, mais certains reprochent à Autochthon le geas et son abandon.</li><li><strong>Auditrice Silencieuse :</strong> La Sidérale de Jupiter, membre de la Faction de Fer, vous rejoint sous une apparence de Jadeborn. Elle vous avertit que les Autochthoniens sont vulnérables à la Contagion, contrairement aux Alchimiques et aux habitants de la Création.</li><li><strong>La contamination :</strong> Verdaxis est contaminé. Dansora décide de rester et de ne pas retourner vers Autochthon.</li></ul></section>
           </article>
+          <footer class="article-footer"><span>Exalted · Autochthonia</span><span>RY 268 / Bois</span></footer>
         </main>
-        <aside class="section-index" aria-label="Sommaire" hidden><h2>Dans cette fiche</h2><nav id="toc" aria-label="Sections"></nav><div class="folio">ARCHIVES DE L'ASSEMBLÉE<br>RY 268 / AIR</div><img class="archive-image" id="archive-image" src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&amp;fit=crop&amp;w=400&amp;q=80" alt="" width="165" height="100" loading="lazy" referrerpolicy="no-referrer"></aside>
+        <aside class="section-index" aria-label="Sommaire" hidden><h2>Dans ce registre</h2><nav id="toc" aria-label="Sections"></nav><div class="folio">ASSEMBLÉE DES<br>VENTS RÉVÉLATEURS<br><br>RY 268 / BOIS<br>URVAR</div></aside>
       </div>
     </div>
   </div>
@@ -168,7 +260,12 @@
         records.push({ page: article.dataset.title, route: article.id, target: block.id, title: heading.textContent, body, searchable: normalize(`${article.dataset.title} ${heading.textContent} ${body}`) });
       });
     }
-    let currentRoute = 'nurad';
+    const mobileLayout = window.matchMedia('(max-width: 800px)');
+    const navigation = document.querySelector('.nav-details');
+    const updateNavigation = () => { navigation.open = !mobileLayout.matches; };
+    updateNavigation();
+    mobileLayout.addEventListener('change', updateNavigation);
+    let currentRoute = 'assemblee';
     function showPage(moveFocus = false) {
       const [requestedRoute, requestedSection] = location.hash.slice(1).split('/');
       const article = articles.find(item => item.id === requestedRoute) || articles[0];
@@ -182,14 +279,16 @@
         else link.removeAttribute('aria-current');
       });
       document.getElementById('current-label').textContent = article.dataset.title;
-      document.title = `${article.dataset.title} · Archives de l'Assemblée`;
+      document.title = `${article.dataset.title} · Le Registre des Vents Révélateurs`;
       toc.replaceChildren();
       for (const record of records.filter(item => item.route === currentRoute)) {
         const link = document.createElement('a');
         link.href = `#${currentRoute}/${record.target}`;
         link.textContent = record.title === article.querySelector('h1').textContent ? 'Synthèse' : record.title;
+        if (record.target === requestedSection) link.setAttribute('aria-current', 'location');
         toc.append(link);
       }
+      if (moveFocus && mobileLayout.matches) navigation.open = false;
       if (moveFocus) main.focus({ preventScroll: true });
       const section = requestedSection && [...article.children].find(item => item.id === requestedSection);
       if (section) section.scrollIntoView({ behavior: 'instant', block: 'start' });
@@ -201,6 +300,8 @@
       articles.forEach(article => { article.hidden = true; });
       indexPanel.hidden = true;
       results.hidden = false;
+      document.getElementById('current-label').textContent = 'Recherche';
+      document.querySelectorAll('[data-page]').forEach(link => link.removeAttribute('aria-current'));
       resultList.replaceChildren();
       const terms = query.split(/\s+/);
       const matches = records.filter(record => terms.every(term => record.searchable.includes(term)));
@@ -241,13 +342,114 @@
       }
       if (link && link.hash === location.hash && link.hash !== '#content') { event.preventDefault(); showPage(true); }
     });
-    const archiveImage = document.getElementById('archive-image');
-    archiveImage.addEventListener('error', () => { archiveImage.hidden = true; });
-    if (archiveImage.complete && !archiveImage.naturalWidth) archiveImage.hidden = true;
     const printButton = document.getElementById('print');
     printButton.hidden = false;
     printButton.addEventListener('click', () => window.print());
+    function drawAutochthon() {
+      const canvas = document.getElementById('autochthon-art');
+      const context = canvas.getContext('2d');
+      if (!context) return;
+      const width = canvas.width;
+      const height = canvas.height;
+      context.fillStyle = '#173a33';
+      context.fillRect(0, 0, width, height);
+      context.strokeStyle = '#325349';
+      context.lineWidth = 1;
+      for (let grid = 0; grid < width; grid += 35) {
+        context.beginPath(); context.moveTo(grid, 0); context.lineTo(grid, height); context.stroke();
+      }
+      for (let grid = 0; grid < height; grid += 35) {
+        context.beginPath(); context.moveTo(0, grid); context.lineTo(width, grid); context.stroke();
+      }
+      function ring(centerX, centerY, radius, color, thickness = 1) {
+        context.beginPath(); context.arc(centerX, centerY, radius, 0, Math.PI * 2);
+        context.strokeStyle = color; context.lineWidth = thickness; context.stroke();
+      }
+      function gear(centerX, centerY, radius, teeth) {
+        context.save(); context.translate(centerX, centerY);
+        context.strokeStyle = '#bca66b'; context.lineWidth = 2;
+        context.beginPath();
+        for (let vertex = 0; vertex <= teeth * 4; vertex++) {
+          const angle = vertex / (teeth * 4) * Math.PI * 2;
+          const distance = vertex % 4 === 1 || vertex % 4 === 2 ? radius : radius - 12;
+          const horizontal = Math.cos(angle) * distance;
+          const vertical = Math.sin(angle) * distance;
+          if (vertex === 0) context.moveTo(horizontal, vertical);
+          else context.lineTo(horizontal, vertical);
+        }
+        context.closePath(); context.stroke();
+        ring(0, 0, radius - 27, '#6c8c79', 4);
+        ring(0, 0, 19, '#bca66b', 2);
+        for (let spoke = 0; spoke < 8; spoke++) {
+          context.save(); context.rotate(spoke * Math.PI / 4);
+          context.strokeStyle = '#789681'; context.lineWidth = 5;
+          context.beginPath(); context.moveTo(28, 0); context.lineTo(radius - 33, 0); context.stroke();
+          context.restore();
+        }
+        context.restore();
+      }
+      gear(150, 255, 145, 24);
+      gear(1280, 92, 130, 22);
+      gear(1190, 325, 88, 16);
+      ring(700, 195, 307, '#99b29c', 2);
+      ring(700, 195, 288, '#bca66b', 3);
+      ring(700, 195, 279, '#547666', 1);
+      for (let tick = 0; tick < 80; tick++) {
+        const angle = tick * Math.PI / 40;
+        context.strokeStyle = '#bca66b'; context.lineWidth = tick % 5 ? 1 : 3;
+        context.beginPath();
+        context.moveTo(700 + Math.cos(angle) * 288, 195 + Math.sin(angle) * 288);
+        context.lineTo(700 + Math.cos(angle) * 302, 195 + Math.sin(angle) * 302);
+        context.stroke();
+      }
+      context.save();
+      context.beginPath(); context.arc(700, 195, 276, 0, Math.PI * 2); context.clip();
+      for (let tower = 0; tower < 23; tower++) {
+        const horizontal = 425 + tower * 25;
+        const towerHeight = 35 + (tower * 43 % 113);
+        const base = 322 - Math.abs(tower - 11) * 3;
+        context.fillStyle = tower % 3 === 0 ? '#749781' : '#416d5c';
+        context.strokeStyle = '#b3c4a7'; context.lineWidth = 1;
+        context.fillRect(horizontal, base - towerHeight, 20, towerHeight);
+        context.strokeRect(horizontal, base - towerHeight, 20, towerHeight);
+        context.fillStyle = '#d2bb78';
+        for (let windowY = base - towerHeight + 9; windowY < base - 5; windowY += 12) {
+          context.fillRect(horizontal + 5, windowY, 3, 4);
+          context.fillRect(horizontal + 12, windowY, 3, 4);
+        }
+      }
+      context.fillStyle = '#c0ccb1';
+      context.fillRect(679, 84, 42, 219);
+      context.fillStyle = '#406f5c';
+      context.fillRect(688, 91, 24, 215);
+      context.fillStyle = '#dcc17c';
+      context.beginPath(); context.moveTo(700, 22); context.lineTo(713, 78); context.lineTo(700, 97); context.lineTo(687, 78); context.closePath(); context.fill();
+      for (let level = 0; level < 3; level++) {
+        const platformY = 308 + level * 18;
+        const halfWidth = 234 - level * 42;
+        context.strokeStyle = '#c3cdb5'; context.lineWidth = 4;
+        context.beginPath(); context.moveTo(700 - halfWidth, platformY); context.lineTo(700 + halfWidth, platformY); context.stroke();
+        context.strokeStyle = '#7c9d88'; context.lineWidth = 1;
+        context.beginPath(); context.ellipse(700, platformY, halfWidth, 12, 0, 0, Math.PI); context.stroke();
+      }
+      context.restore();
+      for (const horizontal of [322, 1078]) {
+        context.strokeStyle = '#8da78d'; context.lineWidth = 2;
+        context.beginPath(); context.moveTo(horizontal, 0); context.lineTo(horizontal, height); context.stroke();
+        for (let junction = 40; junction < height; junction += 85) {
+          context.strokeRect(horizontal - 8, junction, 16, 12);
+          context.beginPath(); context.moveTo(horizontal, junction + 6); context.lineTo(horizontal < 700 ? horizontal - 55 : horizontal + 55, junction + 6); context.stroke();
+        }
+      }
+      context.strokeStyle = '#bca66b'; context.lineWidth = 1;
+      context.strokeRect(16, 16, width - 32, height - 32);
+      for (const centerX of [32, width - 32]) {
+        for (const centerY of [32, height - 32]) ring(centerX, centerY, 4, '#d4bd82', 2);
+      }
+    }
+    drawAutochthon();
     showPage();
   </script>
+  <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js" defer onload="lucide.createIcons()"></script>
 </body>
 </html>
